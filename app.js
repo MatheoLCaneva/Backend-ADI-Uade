@@ -7,7 +7,7 @@ let cors = require('cors');
 
 //importo router
 let indexRouter = require('./routes/index');
-// let apiRouter = require('./routes/user.route'); //Custom
+let apiRouter = require('./routes/user.route');
 // let utilRouter = require('./routes/utils');
 // let classRouter = require('./routes/class.route')
 // let commentRouter = require('./routes/comment.route')
@@ -28,7 +28,7 @@ app.use(cors());
 app.use(cookieParser());
 
 //Indico las rutas de los endpoint
-// app.use('/users', apiRouter);
+app.use('/users', apiRouter);
 app.use('/', indexRouter);
 // app.use('/utils/',utilRouter);
 // app.use('/classes', classRouter)
@@ -39,25 +39,25 @@ app.use('/', indexRouter);
 require('./config').config();
 
 
-// //Database connection --
-// let mongoose = require('mongoose')
-// mongoose.Promise = bluebird;
-// let url = `${process.env.DATABASE1}${process.env.DATABASE2}=${process.env.DATABASE3}=${process.env.DATABASE4}`
-// console.log("BD", url);
-// let opts = {
-//   useNewUrlParser: true,
-//   connectTimeoutMS: 20000,
-//   useUnifiedTopology: true
-// };
+// Database connection --
+let mongoose = require('mongoose')
+mongoose.Promise = bluebird;
+let url = `${process.env.DATABASE1}${process.env.DATABASE2}=${process.env.DATABASE3}=${process.env.DATABASE4}`
+console.log("BD", url);
+let opts = {
+  useNewUrlParser: true,
+  connectTimeoutMS: 20000,
+  useUnifiedTopology: true
+};
 
-// mongoose.connect(url, opts)
-//   .then(() => {
-//     console.log(`Succesfully Connected to theMongodb Database..`)
-//   })
-//   .catch((e) => {
-//     console.log(`Error Connecting to the Mongodb Database...`)
-//     console.log(e)
-//   })
+mongoose.connect(url, opts)
+  .then(() => {
+    console.log(`Succesfully Connected to theMongodb Database..`)
+  })
+  .catch((e) => {
+    console.log(`Error Connecting to the Mongodb Database...`)
+    console.log(e)
+  })
 
 
 app.use(function (req, res, next) {
