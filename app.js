@@ -69,7 +69,7 @@ app.use(function (req, res, next) {
 
 
 // Setup server port
-let port = process.env.PORT || 8080;
+let port = 8080;
 // Escuchar en el puerto
 app.listen(port, () => {
   console.log('Servidor de ABM Users iniciado en el puerto ', port);
