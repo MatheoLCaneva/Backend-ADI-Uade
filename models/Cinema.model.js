@@ -8,7 +8,7 @@ let CinemaSchema = new mongoose.Schema({
     address: Object,
     location: Object,
     price: Number,
-    movies: Object,
+    movies: Array,
     status: Boolean,
     seats: Object
 })

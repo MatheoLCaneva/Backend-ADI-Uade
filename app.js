@@ -8,10 +8,10 @@ let cors = require('cors');
 //importo router
 let indexRouter = require('./routes/index');
 let apiRouter = require('./routes/user.route');
-// let utilRouter = require('./routes/utils');
-// let classRouter = require('./routes/class.route')
-// let commentRouter = require('./routes/comment.route')
+let cinemaRouter = require('./routes/cinema.route')
+let movieRouter = require('./routes/movie.route')
 // let contactRouter = require('./routes/contact.route')
+// let utilRouter = require('./routes/utils');
 
 //instancio el servidor
 let app = express();
@@ -28,10 +28,10 @@ app.use(cors());
 app.use(cookieParser());
 
 //Indico las rutas de los endpoint
-app.use('/users', apiRouter);
 app.use('/', indexRouter);
-// app.use('/utils/',utilRouter);
-// app.use('/classes', classRouter)
+app.use('/users', apiRouter);
+app.use('/cinemas', cinemaRouter)
+app.use('/movies', movieRouter);
 // app.use('/comments', commentRouter)
 // app.use('/contacts', contactRouter)
 

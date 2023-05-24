@@ -5,10 +5,11 @@ let mongoosePaginate = require('mongoose-paginate')
 let MovieSchema = new mongoose.Schema({
     title: String,
     image: String,
-    genre: String,
+    genre: Array,
     synopsis: String,
     rating: Number,
-    releaseDate: Date,
+    cantRating:Number,
+    releaseDate: String
 })
 
 MovieSchema.plugin(mongoosePaginate)

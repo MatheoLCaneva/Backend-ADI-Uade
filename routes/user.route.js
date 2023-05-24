@@ -1,8 +1,8 @@
-var express = require('express')
-var router = express.Router()
-var UserController = require('../controllers/user.controller');
-// var MailController = require('../controllers/mail.controller');
-var Authorization = require('../auth/authorization');
+let express = require('express')
+let router = express.Router()
+let UserController = require('../controllers/user.controller');
+// let MailController = require('../controllers/mail.controller');
+let Authorization = require('../auth/authorization');
 
 
 // Authorize each API with middleware and map to the Controller Functions
