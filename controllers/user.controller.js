@@ -51,7 +51,7 @@ exports.createUser = async function (req, res) {
         console.log(createdUser)
         if (createdUser.description) { return res.status(409).json({ status: 409, message: "Email already exist" }) }
         else {
-            return res.status(201).json({ createdUser, message: "Succesfully Created User" })
+            return res.status(201).json({ status: 201, createdUser, message: "Succesfully Created User" })
         }
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -73,7 +73,7 @@ exports.updateUser = async function (req, res, next) {
         let updatedUser = await UserService.updateUser(User)
         return res.status(200).json({ status: 200, data: updatedUser, message: "Succesfully Updated User" })
     } catch (e) {
-        return res.status(400).json({ status: 400., message: e.message })
+        return res.status(400).json({ status: 400, message: e.message })
     }
 }
 
@@ -82,7 +82,7 @@ exports.removeUser = async function (req, res, next) {
     let email = req.body.email;
     try {
         let deleted = await UserService.deleteUser(email);
-        res.status(200).send({status: 200, message: "Succesfully Deleted... "});
+        res.status(200).send({ deleted, status: 200, message: "Succesfully Deleted... "});
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }
@@ -102,7 +102,7 @@ exports.loginUser = async function (req, res) {
         if (loginUser === 0)
             return res.status(400).json({ status: 400, message: "Invalid password" })
         else
-            return res.status(201).json({ loginUser, message: "Succesfully login" })
+            return res.status(201).json({ status: 201, loginUser, message: "Succesfully login" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({ status: 400, message: "Invalid username or password" })

@@ -34,6 +34,22 @@ exports.getCinemaById = async function (req, res) {
     }
 }
 
+exports.getCinemaByOwner = async function (req, res) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    let page = req.query.page ? req.query.page : 1
+    let limit = req.query.limit ? req.query.limit : 10;
+    let filtro = { owner: req.params.ownerId }
+    try {
+        let Cinemas = await CinemaService.getCinemas(filtro, page, limit)
+        // Return the Cinemas list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({ status: 200, data: Cinemas, message: "Succesfully Cinemas Recieved" });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
 exports.createCinema = async function (req, res) {
     // Req.Body contains the form submit values.
     let Cinema = {
@@ -41,15 +57,12 @@ exports.createCinema = async function (req, res) {
         owner: req.body.owner,
         address: req.body.address,
         location: req.body.location,
-        price: req.body.price,
-        status: req.body.status,
-        seats: req.body.seats
     }
     try {
         // Calling the Service function with the new object from the Request Body
         let createdCinema = await CinemaService.createCinema(Cinema)
         console.log(createdCinema)
-        return res.status(201).json({ createdCinema, message: "Succesfully Created Cinema" })
+        return res.status(201).json({ status: 201, createdCinema, message: "Succesfully Created Cinema" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
@@ -65,7 +78,7 @@ exports.updateCinema = async function (req, res, next) {
         let updatedCinema = await CinemaService.updateCinema(Cinema)
         return res.status(200).json({ status: 200, cinema: updatedCinema, message: "Succesfully Updated Cinema" })
     } catch (e) {
-        return res.status(400).json({ status: 400., message: e.message })
+        return res.status(400).json({ status: 400, message: e.message })
     }
 }
 
@@ -74,7 +87,7 @@ exports.removeCinema = async function (req, res, next) {
     let _id = req.params.id;
     try {
         let deleted = await CinemaService.deleteCinema(_id);
-        res.status(200).send({ status: 200, message: "Succesfully Deleted... " });
+        res.status(200).send({ deleted, status: 200, message: "Succesfully Deleted... " });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }

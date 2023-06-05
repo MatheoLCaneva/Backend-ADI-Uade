@@ -29,27 +29,12 @@ exports.getCinemas = async function (query, page, limit) {
 exports.createCinema = async function (Cine) {
     // Creating a new Mongoose Object by using the new keyword
     let newCinema;
-    let seats = []
-    for (let row = 1; row <= Cine.seats.rows; row++) {
-        for (let col = 1; col <= Cine.seats.columns; col++) {
-            const seat = {
-                row,
-                col,
-                usedAt: [],
-            };
-            seats.push(seat);
-        }
-    }
 
     newCinema = new Cinema({
         name: Cine.name,
         owner: Cine.owner,
         address: Cine.address,
         location: Cine.location,
-        price: Cine.price,
-        movies: [],
-        status: Cine.status,
-        seats: seats
     })
 
     try {

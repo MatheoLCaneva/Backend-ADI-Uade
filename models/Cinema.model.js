@@ -7,10 +7,6 @@ let CinemaSchema = new mongoose.Schema({
     owner: String,
     address: Object,
     location: Object,
-    price: Number,
-    movies: Array,
-    status: Boolean,
-    seats: Object
 })
 
 CinemaSchema.plugin(mongoosePaginate)

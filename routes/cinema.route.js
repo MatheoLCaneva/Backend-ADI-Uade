@@ -13,6 +13,7 @@ router.get('/test', function(req, res) {
 router.post('/', CinemaController.createCinema)
 router.get('/', CinemaController.getCinemas)
 router.get('/:id',CinemaController.getCinemaById)
+router.get('/owner/:ownerId', CinemaController.getCinemaByOwner)
 router.put('/', CinemaController.updateCinema)
 router.delete('/:id', CinemaController.removeCinema)
 // router.post('/sendMail',MailController.sendEmail)

@@ -47,7 +47,7 @@ exports.createMovie = async function (req, res) {
         // Calling the Service function with the new object from the Request Body
         let createdMovie = await MovieService.createMovie(Movie)
         console.log(createdMovie)
-        return res.status(201).json({ createdMovie, message: "Succesfully Created Movie" })
+        return res.status(201).json({ status: 201, createdMovie, message: "Succesfully Created Movie" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
@@ -63,7 +63,7 @@ exports.updateMovie = async function (req, res, next) {
         let updatedMovie = await MovieService.updateMovie(Movie)
         return res.status(200).json({ status: 200, movie: updatedMovie, message: "Succesfully Updated Movie" })
     } catch (e) {
-        return res.status(400).json({ status: 400., message: e.message })
+        return res.status(400).json({ status: 400, message: e.message })
     }
 }
 
@@ -72,7 +72,7 @@ exports.removeMovie = async function (req, res, next) {
     let _id = req.params.id;
     try {
         let deleted = await MovieService.deleteMovie(_id);
-        res.status(200).send({ status: 200, message: "Succesfully Deleted... " });
+        res.status(200).send({ deleted, status: 200, message: "Succesfully Deleted... " });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }
