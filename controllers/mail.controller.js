@@ -18,8 +18,10 @@ exports.sendEmail = async function (req, res, next) {
     });
     // Definimos el email
 
+    let mailOptions = {}
+
     if (req.body.tipo == 1) {
-        var mailOptions = {
+        mailOptions = {
             from: 'infoaditest@gmail.com',
             to: req.body.email,
             subject: req.body.asunto,
