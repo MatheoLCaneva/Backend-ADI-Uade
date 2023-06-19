@@ -1,7 +1,7 @@
 let express = require('express')
 let router = express.Router()
 let UserController = require('../controllers/user.controller');
-// let MailController = require('../controllers/mail.controller');
+let MailController = require('../controllers/mail.controller');
 let Authorization = require('../auth/authorization');
 
 
@@ -16,7 +16,7 @@ router.post('/login', UserController.loginUser)
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
 router.put('/', UserController.updateUser)
 router.delete('/', UserController.removeUser)
-// router.post('/sendMail',MailController.sendEmail)
+router.post('/sendMail',MailController.sendEmail)
 
 
 
