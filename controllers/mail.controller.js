@@ -19,7 +19,7 @@ exports.sendEmail = async function (req, res, next) {
     // Definimos el email
 
     if (req.body.tipo == 1) {
-        let mailOptions = {
+        var mailOptions = {
             from: 'infoaditest@gmail.com',
             to: req.body.email,
             subject: req.body.asunto,
