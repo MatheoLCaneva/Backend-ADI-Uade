@@ -1,20 +1,20 @@
 let express = require('express')
 let router = express.Router()
-let CinemaController = require('../controllers/cinema.controller');
+let RoomController = require('../controllers/room.controller');
 // let MailController = require('../controllers/mail.controller');
 let Authorization = require('../auth/authorization');
 
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
-router.get('/test', function(req, res) {
-    res.send('Cinemas route');
-  });
-router.post('/', CinemaController.createCinema)
-router.get('/', CinemaController.getCinemas)
-router.get('/:id',CinemaController.getCinemaById)
-router.put('/', CinemaController.updateCinema)
-router.delete('/:id', CinemaController.removeCinema)
+router.get('/test', function (req, res) {
+  res.send('Rooms route');
+});
+router.post('/', RoomController.createRoom)
+router.get('/', RoomController.getRooms)
+router.get('/:id', RoomController.getRoomById)
+router.put('/', RoomController.updateRoom)
+router.delete('/:id', RoomController.removeRoom)
 // router.post('/sendMail',MailController.sendEmail)
 
 

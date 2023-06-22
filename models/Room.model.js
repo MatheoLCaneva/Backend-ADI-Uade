@@ -5,12 +5,10 @@ let mongoosePaginate = require('mongoose-paginate')
 let RoomSchema = new mongoose.Schema({
     name: String,
     owner: String,
-    address: Object,
-    location: Object,
+    cinema: String,
     price: Number,
-    movies: Array,
     status: Boolean,
-    seats: Object
+    seats: Array
 })
 
 RoomSchema.plugin(mongoosePaginate)

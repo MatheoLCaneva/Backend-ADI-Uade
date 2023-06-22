@@ -35,6 +35,7 @@ exports.createCinema = async function (Cine) {
         owner: Cine.owner,
         address: Cine.address,
         location: Cine.location,
+        rooms: []
     })
 
     try {
@@ -74,6 +75,7 @@ exports.updateCinema = async function (Cine) {
         throw Error("And Error occured while updating the Cinema");
     }
 }
+
 
 exports.deleteCinema = async function (_id) {
 
