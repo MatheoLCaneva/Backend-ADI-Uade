@@ -63,10 +63,8 @@ exports.updateCinema = async function (Cine) {
     if (!oldCinema) {
         return false;
     }
-    //Edit the Cinema Object
-    Object.keys(Cine).forEach(key => {
-        oldCinema[key] = Cine[key];
-    });
+
+    oldCinema = Cine
 
     try {
         let savedCinema = await oldCinema.save()
