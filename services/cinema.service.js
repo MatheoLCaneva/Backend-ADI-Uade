@@ -56,7 +56,8 @@ exports.updateCinema = async function (Cine) {
     console.log(_id)
     try {
         //Find the old Cinema Object by the Id
-        oldCinema = await Cinema.findOne(_id);
+        savedCinema = await Cinema.findOneAndReplace(_id,Cine);
+        return savedCinema
     } catch (e) {
         throw Error("Error occured while Finding the Cinema")
     }
