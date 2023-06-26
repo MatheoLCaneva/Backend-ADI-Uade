@@ -87,33 +87,15 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
 
+    let hashedPassword = bcrypt.hashSync(user.password, 8);
+    user.password = hashedPassword
     let _id = { _id: user._id }
-    console.log('pase el controller')
-    console.log(user)
     try {
         //Find the old User Object by the Id
-        let oldUser = await User.findOne(_id);
+        let savedUser = await User.findOneAndReplace(_id, user);
+        return savedUser
     } catch (e) {
         throw Error("Error occured while Finding the User")
-    }
-    // If no old User Object exists return false
-    if (!oldUser) {
-        return false;
-    }
-    //Edit the User Object
-    if (user.name !== null) {
-        oldUser.name = user.name;
-    }
-
-    if (user.lastName !== null) {
-        oldUser.lastName = user.lastName;
-    }
-
-    try {
-        let savedUser = await oldUser.save()
-        return savedUser;
-    } catch (e) {
-        throw Error("And Error occured while updating the User");
     }
 }
 
