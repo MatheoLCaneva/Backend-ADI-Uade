@@ -5,7 +5,7 @@ let mongoosePaginate = require('mongoose-paginate')
 let FunctionSchema = new mongoose.Schema({
     cinema: String,
     room: String,
-    movie: String,
+    movie: Object,
     date: String,
     hour: String,
 })
