@@ -33,10 +33,10 @@ exports.createFunction = async function (funcion) {
     let movie;
     console.log(funcion.movie)
     try {
-    
+
         movie = await Movie.findById(funcion.movie)
 
-    }catch (e){
+    } catch (e) {
         throw Error('Error')
     }
 
@@ -62,27 +62,12 @@ exports.createFunction = async function (funcion) {
 exports.updateFunction = async function (funcion) {
 
     let _id = { _id: funcion._id }
-    let oldFunction;
     try {
         //Find the old Function Object by the Id
-        oldFunction = await Function.findOne(_id);
+        savedFunction = await Function.findOneAndReplace(_id, funcion);
+        return savedFunction
     } catch (e) {
         throw Error("Error occured while Finding the Function")
-    }
-    // If no old Function Object exists return false
-    if (!oldFunction) {
-        return false;
-    }
-    //Edit the Function Object
-    Object.keys(funcion).forEach(key => {
-        oldFunction[key] = funcion[key];
-    });
-
-    try {
-        let savedFunction = await oldFunction.save()
-        return savedFunction;
-    } catch (e) {
-        throw Error("And Error occured while updating the Function");
     }
 }
 
