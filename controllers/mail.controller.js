@@ -32,12 +32,31 @@ exports.sendEmail = async function (req, res, next) {
         try {
             let info = await transporter.sendMail(mailOptions);
             console.log("Message sent: %s", info.messageId);
-            return res.status(200).json({ status: 200, message: "Código enviado con éxito", code: code})
+            return res.status(200).json({ status: 200, message: "Código enviado con éxito", code: code })
         }
         catch (error) {
             console.log("Error envio mail: ", error);
         }
-    };
+    }
+
+    else if (req.body.tipo == 2) {
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        mailOptions = {
+            from: 'infoaditest@gmail.com',
+            to: req.body.email,
+            subject: req.body.asunto,
+            html: `<h1>Estimado/a</h1> </br> <h4>Su codigo de recupero de contraseña es: ${code}.</h4>`,
+        };
+
+        try {
+            let info = await transporter.sendMail(mailOptions);
+            console.log("Message sent: %s", info.messageId);
+            return res.status(200).json({ status: 200, message: "Código enviado con éxito", code: code })
+        }
+        catch (error) {
+            console.log("Error envio mail: ", error);
+        }
+    }
 }
 // else if (req.body.obj.tipo == 0) {
 //     var mailOptions = {
