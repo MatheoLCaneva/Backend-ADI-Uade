@@ -74,6 +74,7 @@ exports.updateCinema = async function (req, res, next) {
 
     
     let Cinema = req.body
+    console.log('req.body update cinema', req.body)
     try {
         let updatedCinema = await CinemaService.updateCinema(Cinema)
         return res.status(200).json({ status: 200, cinema: updatedCinema, message: "Succesfully Updated Cinema" })
