@@ -93,27 +93,12 @@ exports.createRoom = async function (room) {
 exports.updateRoom = async function (room) {
 
     let _id = { _id: room._id }
-    let oldRoom;
     try {
         //Find the old room Object by the Id
-        oldRoom = await room.findOne(_id);
+        savedRoom = await Room.findOneAndReplace(_id, room);
+        return savedRoom
     } catch (e) {
         throw Error("Error occured while Finding the room")
-    }
-    // If no old room Object exists return false
-    if (!oldRoom) {
-        return false;
-    }
-    //Edit the room Object
-    Object.keys(room).forEach(key => {
-        oldRoom[key] = room[key];
-    });
-
-    try {
-        let savedRoom = await oldRoom.save()
-        return savedRoom;
-    } catch (e) {
-        throw Error("And Error occured while updating the room");
     }
 }
 
