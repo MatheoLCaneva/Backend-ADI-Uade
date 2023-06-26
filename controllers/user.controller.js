@@ -64,11 +64,7 @@ exports.updateUser = async function (req, res, next) {
 
     // Id is necessary for the update
 
-    let User = {
-        _id: req.body._id,
-        name: req.body.name ? req.body.name : null,
-        lastName: req.body.lastName ? req.body.lastName : null
-    }
+    const User = req.body
     try {
         let updatedUser = await UserService.updateUser(User)
         return res.status(200).json({ status: 200, data: updatedUser, message: "Succesfully Updated User" })
