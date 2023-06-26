@@ -53,6 +53,7 @@ exports.updateCinema = async function (Cine) {
 
     let _id = { _id: Cine._id }
     let oldCinema;
+    console.log(_id)
     try {
         //Find the old Cinema Object by the Id
         oldCinema = await Cinema.findOne(_id);
@@ -60,6 +61,7 @@ exports.updateCinema = async function (Cine) {
         throw Error("Error occured while Finding the Cinema")
     }
     // If no old Cinema Object exists return false
+    console.log('oldCinema', oldCinema)
     if (!oldCinema) {
         return false;
     }
