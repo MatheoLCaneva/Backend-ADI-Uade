@@ -35,7 +35,7 @@ app.use('/users', apiRouter);
 app.use('/cinemas', cinemaRouter)
 app.use('/rooms', roomsRouter)
 app.use('/movies', movieRouter);
-app.use('/function', functionRouter)
+app.use('/functions', functionRouter)
 
 
 require('./config').config();

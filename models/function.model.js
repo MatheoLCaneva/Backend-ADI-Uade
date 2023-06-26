@@ -6,8 +6,8 @@ let FunctionSchema = new mongoose.Schema({
     cinema: String,
     room: String,
     movie: String,
-    date: Date,
-    hour: Date,
+    date: String,
+    hour: String,
 })
 
 FunctionSchema.plugin(mongoosePaginate)
