@@ -67,9 +67,11 @@ exports.updateCinema = async function (Cine) {
     }
 
     oldCinema = Cine
+    console.log('nuevo old cinema', oldCinema)
 
     try {
         let savedCinema = await oldCinema.save()
+        console.log('saveddd', savedCinema)
         return savedCinema;
     } catch (e) {
         throw Error("And Error occured while updating the Cinema");
