@@ -27,6 +27,27 @@ exports.getRooms = async function (query, page, limit) {
     }
 }
 
+exports.getRoomsByCinema = async function (query, page, limit) {
+
+    // Options setup for the mongoose paginate
+    let options = {
+        page,
+        limit
+    }
+    // Try Catch the awaited promise to handle the error 
+    try {
+        console.log("Query", query)
+        let Rooms = await Room.paginate(query, options)
+        // Return the Roomd list that was retured by the mongoose promise
+        return Rooms;
+
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services", e)
+        throw Error('Error while Paginating Rooms');
+    }
+}
+
 exports.createRoom = async function (room) {
     // Creating a new Mongoose Object by using the new keyword
     let newRoom;

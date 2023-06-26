@@ -34,14 +34,14 @@ exports.getRoomById = async function (req, res) {
     }
 }
 
-exports.getRoomByOwner = async function (req, res) {
+exports.getRoomsByCinema = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     let page = req.query.page ? req.query.page : 1
     let limit = req.query.limit ? req.query.limit : 10;
-    let filtro = { owner: req.params.ownerId }
+    let filtro = { cinema: req.params.cinemaId }
     try {
-        let Rooms = await RoomService.getRooms(filtro, page, limit)
+        let Rooms = await RoomService.getRoomsByCinema(filtro, page, limit)
         // Return the Rooms list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Rooms, message: "Succesfully Rooms Recieved" });
     } catch (e) {

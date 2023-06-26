@@ -11,6 +11,7 @@ let apiRouter = require('./routes/user.route');
 let cinemaRouter = require('./routes/cinema.route')
 let movieRouter = require('./routes/movie.route')
 let roomsRouter = require('./routes/room.route')
+let functionRouter = require('./routes/function.route')
 // let contactRouter = require('./routes/contact.route')
 // let utilRouter = require('./routes/utils');
 
@@ -34,8 +35,7 @@ app.use('/users', apiRouter);
 app.use('/cinemas', cinemaRouter)
 app.use('/rooms', roomsRouter)
 app.use('/movies', movieRouter);
-// app.use('/comments', commentRouter)
-// app.use('/contacts', contactRouter)
+app.use('/function', functionRouter)
 
 
 require('./config').config();
