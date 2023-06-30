@@ -49,6 +49,22 @@ exports.getFunctionByRoom = async function (req, res) {
     }
 }
 
+exports.getFunctionByCinema = async function (req, res) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    let page = req.query.page ? req.query.page : 1
+    let limit = req.query.limit ? req.query.limit : 10;
+    let filtro = { cinema: req.params.cinemaId }
+    try {
+        let Functions = await FunctionService.getFunctions(filtro, page, limit)
+        // Return the Functions list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({ status: 200, data: Functions, message: "Succesfully Functions Recieved" });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
 exports.createFunction = async function (req, res) {
     // Req.Body contains the form submit values.
     let Function = {
