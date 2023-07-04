@@ -12,7 +12,7 @@ let cinemaRouter = require('./routes/cinema.route')
 let movieRouter = require('./routes/movie.route')
 let roomsRouter = require('./routes/room.route')
 let functionRouter = require('./routes/function.route')
-// let contactRouter = require('./routes/contact.route')
+let reserveRouter = require('./routes/reservartion.route')
 // let utilRouter = require('./routes/utils');
 
 //instancio el servidor
@@ -36,6 +36,7 @@ app.use('/cinemas', cinemaRouter)
 app.use('/rooms', roomsRouter)
 app.use('/movies', movieRouter);
 app.use('/functions', functionRouter)
+app.use('/reservations', reserveRouter)
 
 
 require('./config').config();

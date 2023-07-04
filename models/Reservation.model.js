@@ -3,11 +3,12 @@ let mongoosePaginate = require('mongoose-paginate')
 
 
 let ReservationSchema = new mongoose.Schema({
-    user: Object,
-    cinema: Object,
-    movie: Object,
-    date: Date,
-    time: Date,
+    user: String,
+    cinema: String,
+    movie: String,
+    room: String,
+    date: String,
+    hour: String,
     seats: Array,
     totalPrice: Number
 })
