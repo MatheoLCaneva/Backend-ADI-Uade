@@ -1,6 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
 let Function = require('../models/function.model');
 let Movie = require('../models/Movie.model')
+let Room = require('../models/Room.model')
 // let Class = require('../models/Class.model')
 // Saving the context of this module inside the _the letiable
 let _this = this
@@ -31,21 +32,30 @@ exports.createFunction = async function (funcion) {
     // Creating a new Mongoose Object by using the new keyword
     let newFunction;
     let movie;
-    console.log(funcion.movie)
+    let room;
+    let seats;
     try {
-
         movie = await Movie.findById(funcion.movie)
-
     } catch (e) {
         throw Error('Error')
     }
+
+    try {
+        room = await Room.findById(funcion.room)
+    }
+    catch (e) {
+        throw Error('Error al buscar room')
+    }
+
+    seats = room.seats
 
     newFunction = new Function({
         cinema: funcion.cinema,
         room: funcion.room,
         movie: movie,
         date: funcion.date,
-        hour: funcion.hour
+        hour: funcion.hour,
+        seats: seats
     })
 
     try {
