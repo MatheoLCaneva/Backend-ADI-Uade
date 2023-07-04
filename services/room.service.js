@@ -55,7 +55,7 @@ exports.createRoom = async function (room) {
 
     for (let row = 1; row <= room.rows; row++) {
         for (let column = 1; column <= room.columns; column++) {
-            const seat = { row, column };
+            const seat = { row, column, isUsed: false };
             seats.push(seat);
         }
     }
