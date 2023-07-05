@@ -33,7 +33,7 @@ exports.createReserve = async function (reservation) {
 
     try {
         const functionId = { _id: reservation.functionId }
-        const func = await Function.findById(functionId)
+        const func = await Function.findOne(functionId)
 
         reservation.seats.forEach(reservedSeat => {
             const matchingSeatIndex = func.seats.findIndex(seat =>
