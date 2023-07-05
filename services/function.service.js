@@ -74,7 +74,7 @@ exports.updateFunction = async function (funcion) {
     let _id = { _id: funcion._id }
     try {
         //Find the old Function Object by the Id
-        savedFunction = await Function.findOneAndReplace(_id, funcion);
+        let savedFunction = await Function.findOneAndUpdate(_id, funcion);
         return savedFunction
     } catch (e) {
         throw Error("Error occured while Finding the Function")

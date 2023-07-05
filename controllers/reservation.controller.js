@@ -50,8 +50,7 @@ exports.createReserve = async function (req, res) {
     try {
         // Calling the Service function with the new object from the Request Body
         let createdReservation = await Reservationservice.createReserve(Reserve)
-        console.log(createdReservation)
-        return res.status(201).json({ status: 201, createdReservation, message: "Succesfully Created Reserve" })
+        return res.status(201).json({ status: 201, created: createdReservation, message: "Succesfully Created Reserve" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)

@@ -1,6 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
 let Reservation = require('../models/Reservation.model');
 let Function = require('../models/function.model')
+let FunctionService = require('../services/function.service')
 // let Class = require('../models/Class.model')
 // Saving the context of this module inside the _the letiable
 let _this = this
@@ -31,23 +32,23 @@ exports.createReserve = async function (reservation) {
     // Creating a new Mongoose Object by using the new keyword
     let newReserve;
 
+    const id = { _id: reservation.functionId }
     try {
-        console.log(reservation)
-        const func = await Function.findOne({_id:reservation.functionId})
+        const func = await Function.findOne(id)
         reservation.seats.forEach(reservedSeat => {
             const matchingSeatIndex = func.seats.findIndex(seat =>
-                seat.row === reservedSeat.row && seat.column === reservedSeat.column
+                seat.row == reservedSeat.row && seat.column == reservedSeat.column
             );
 
-            if (matchingSeat !== -1) {
+            if (matchingSeatIndex !== -1) {
                 func.seats[matchingSeatIndex].isUsed = true
             }
         })
 
-        await func.save()
+        await FunctionService.updateFunction(func)
 
     } catch (e) {
-        throw Error('Error while searching function')
+        return e
     }
 
     newReserve = new Reservation({
