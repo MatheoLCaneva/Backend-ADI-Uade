@@ -32,9 +32,8 @@ exports.createReserve = async function (reservation) {
     let newReserve;
 
     try {
-        const functionId = { _id: reservation.functionId }
-        const func = await Function.findOne(functionId)
-
+        console.log(reservation)
+        const func = await Function.findOne({_id:reservation.functionId})
         reservation.seats.forEach(reservedSeat => {
             const matchingSeatIndex = func.seats.findIndex(seat =>
                 seat.row === reservedSeat.row && seat.column === reservedSeat.column
