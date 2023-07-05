@@ -43,7 +43,8 @@ exports.createReserve = async function (req, res) {
         date: req.body.date,
         hour: req.body.hour,
         seats: req.body.seats,
-        totalPrice: req.body.totalPrice
+        totalPrice: req.body.totalPrice,
+        functionId: req.body.functionId
     }
     try {
         // Calling the Service function with the new object from the Request Body
