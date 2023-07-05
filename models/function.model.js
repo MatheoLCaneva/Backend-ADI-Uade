@@ -3,8 +3,8 @@ let mongoosePaginate = require('mongoose-paginate')
 
 
 let FunctionSchema = new mongoose.Schema({
-    cinema: String,
-    room: String,
+    cinema: Object,
+    room: Object,
     movie: Object,
     date: String,
     hour: String,
