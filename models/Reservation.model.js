@@ -10,7 +10,8 @@ let ReservationSchema = new mongoose.Schema({
     date: String,
     hour: String,
     seats: Array,
-    totalPrice: Number
+    totalPrice: Number,
+    qrCode: String,
 })
 
 ReservationSchema.plugin(mongoosePaginate)
