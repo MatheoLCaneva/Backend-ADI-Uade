@@ -61,7 +61,7 @@ exports.createReserve = async function (reservation) {
         hour: reservation.hour,
         seats: reservation.seats,
         totalPrice: reservation.totalPrice,
-        qrCode: reservation.qrCode
+        status: false,
     })
 
     try {

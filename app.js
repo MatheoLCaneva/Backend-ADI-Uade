@@ -13,7 +13,7 @@ let movieRouter = require('./routes/movie.route')
 let roomsRouter = require('./routes/room.route')
 let functionRouter = require('./routes/function.route')
 let reserveRouter = require('./routes/reservartion.route')
-// let utilRouter = require('./routes/utils');
+let commentsRouter = require('./routes/comment.route');
 
 //instancio el servidor
 let app = express();
@@ -37,7 +37,7 @@ app.use('/rooms', roomsRouter)
 app.use('/movies', movieRouter);
 app.use('/functions', functionRouter)
 app.use('/reservations', reserveRouter)
-
+app.use('/comments', commentsRouter)
 
 require('./config').config();
 
