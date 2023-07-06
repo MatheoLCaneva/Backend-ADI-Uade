@@ -14,6 +14,7 @@ router.get('/test', function (req, res) {
 router.post('/', ReservationController.createReserve)
 router.get('/', ReservationController.getReserves)
 router.get('/:id', ReservationController.getReserveById)
+router.get('/user/:email', ReservationController.getReservesByUser)
 router.put('/', ReservationController.updateReserve)
 router.delete('/:id', ReservationController.removeReserve)
 

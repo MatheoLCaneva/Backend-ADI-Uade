@@ -38,7 +38,7 @@ exports.getReservesByUser = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     let page = req.query.page ? req.query.page : 1
     let limit = req.query.limit ? req.query.limit : 10;
-    let filtro = { _id: req.params.id }
+    let filtro = { 'user.email': req.params.email }
     try {
         let Reservations = await Reservationservice.getReservations(filtro, page, limit)
         // Return the Reservations list with the appropriate HTTP password Code and Message.
