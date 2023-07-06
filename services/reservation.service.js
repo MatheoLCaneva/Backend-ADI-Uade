@@ -52,6 +52,7 @@ exports.createReserve = async function (reservation) {
     }
 
     newReserve = new Reservation({
+        user: reservation.user,
         cinema: reservation.cinema,
         room: reservation.room,
         movie: reservation.movie,

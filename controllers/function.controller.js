@@ -54,7 +54,7 @@ exports.getFunctionByCinema = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     let page = req.query.page ? req.query.page : 1
     let limit = req.query.limit ? req.query.limit : 10;
-    let filtro = { cinema: req.params.cinemaId }
+    let filtro = {'cinema.id': req.params.cinemaId }
     try {
         let Functions = await FunctionService.getFunctions(filtro, page, limit)
         // Return the Functions list with the appropriate HTTP password Code and Message.

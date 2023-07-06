@@ -18,6 +18,7 @@ exports.getFunctions = async function (query, page, limit) {
     try {
         console.log("Query", query)
         let Functions = await Function.paginate(query, options)
+        console.log(Functions)
         // Return the Functiond list that was retured by the mongoose promise
         return Functions;
 

@@ -33,6 +33,22 @@ exports.getReserveById = async function (req, res) {
     }
 }
 
+exports.getReservesByUser = async function (req, res) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    let page = req.query.page ? req.query.page : 1
+    let limit = req.query.limit ? req.query.limit : 10;
+    let filtro = { _id: req.params.id }
+    try {
+        let Reservations = await Reservationservice.getReservations(filtro, page, limit)
+        // Return the Reservations list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({ status: 200, data: Reservations, message: "Succesfully Reservations Recieved" });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
 exports.createReserve = async function (req, res) {
     // Req.Body contains the form submit values.
     let Reserve = {
@@ -47,6 +63,7 @@ exports.createReserve = async function (req, res) {
         functionId: req.body.functionId,
         qrCode: req.body.qrCode
     }
+
     try {
         // Calling the Service function with the new object from the Request Body
         let createdReservation = await Reservationservice.createReserve(Reserve)
