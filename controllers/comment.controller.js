@@ -23,7 +23,7 @@ exports.getCommentsByUser = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     let page = req.query.page ? req.query.page : 1
     let limit = req.query.limit ? req.query.limit : 10;
-    let filtro = { 'user.email': req.params.email }
+    let filtro = { 'user.email': req.params.email, 'movie.id': req.params.movie }
     try {
         let Comments = await Commentservice.getComments(filtro, page, limit)
         // Return the Comments list with the appropriate HTTP password Code and Message.
