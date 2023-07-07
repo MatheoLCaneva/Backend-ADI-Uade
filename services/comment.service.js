@@ -32,6 +32,7 @@ exports.createComment = async function (comment) {
 
     newComment = new Comment({
         user: comment.user,
+        movie: comment.movie,
         cinema: comment.cinema,
         comment: comment.comment
     })

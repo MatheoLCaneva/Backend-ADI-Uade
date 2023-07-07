@@ -38,6 +38,7 @@ exports.createComment = async function (req, res) {
     // Req.Body contains the form submit values.
     let Comment = {
         user: req.body.user,
+        movie: req.body.movie,
         cinema: req.body.cinema,
         comment: req.body.comment,
     }
