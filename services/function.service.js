@@ -42,7 +42,7 @@ exports.createFunction = async function (funcion) {
     }
 
     try {
-        room = await Room.findById(funcion.room)
+        room = await Room.findById(funcion.room.id)
     }
     catch (e) {
         throw Error('Error al buscar room')
