@@ -87,12 +87,12 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
 
-    let hashedPassword = bcrypt.hashSync(user.password, 8);
-    user.password = hashedPassword
+    // let hashedPassword = bcrypt.hashSync(user.password, 8);
+    // user.password = hashedPassword
     let _id = { _id: user._id }
     try {
         //Find the old User Object by the Id
-        let savedUser = await User.findOneAndReplace(_id, user);
+        let savedUser = await User.findOneAndUpdate(_id, user, { new: true });
         return savedUser
     } catch (e) {
         throw Error("Error occured while Finding the User")
