@@ -50,6 +50,20 @@ exports.createUser = async function (user) {
             rol: user.rol,
             imgUser: user.imgUser
         })
+        try {
+            // Saving the User 
+            let savedUser = await newUser.save();
+            let token = jwt.sign({
+                id: savedUser._id
+            }, process.env.SECRET, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+            return token;
+        } catch (e) {
+            // return a Error message describing the reason 
+            console.log(e)
+            throw Error("Error while Creating User")
+        }
     }
 
     else if (user.rol == "User") {
@@ -62,26 +76,12 @@ exports.createUser = async function (user) {
             rol: user.rol,
             imgUser: user.imgUser
         })
-
+        let savedUser = await newUser.save();
+        return savedUser
     }
 
     else {
         throw Error("Rol must be Owner or User")
-    }
-
-    try {
-        // Saving the User 
-        let savedUser = await newUser.save();
-        let token = jwt.sign({
-            id: savedUser._id
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-        return token;
-    } catch (e) {
-        // return a Error message describing the reason 
-        console.log(e)
-        throw Error("Error while Creating User")
     }
 }
 
