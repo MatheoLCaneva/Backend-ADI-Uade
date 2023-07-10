@@ -16,6 +16,7 @@ router.get('/', FunctionController.getFunctions)
 router.get('/:id', FunctionController.getFunctionById)
 router.get('/room/:roomId', FunctionController.getFunctionByRoom)
 router.get('/cinema/:cinemaId', FunctionController.getFunctionByCinema)
+router.post('/filters/', FunctionController.getFunctionsWithFilters)
 router.put('/', FunctionController.updateFunction)
 router.delete('/:id', FunctionController.removeFunction)
 

@@ -29,6 +29,36 @@ exports.getFunctions = async function (query, page, limit) {
     }
 }
 
+exports.getFunctionWithFilters = async function (query, page, limit) {
+
+    let options = {
+        page,
+        limit
+    }
+    // Try Catch the awaited promise to handle the error 
+    try {
+        console.log("Query", query)
+        let filters = [];
+        for (let key in query) {
+            let filter = {};
+            filter[key] = query[key];
+            filters.push(filter);
+        }
+        let finalQuery = { $and: filters };
+
+        console.log('finalQuery___', finalQuery)
+
+        let Functions = await Function.paginate(finalQuery, options)
+        // Return the Functiond list that was retured by the mongoose promise
+        return Functions;
+
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services", e)
+        throw Error('Error while Paginating Functions');
+    }
+}
+
 exports.createFunction = async function (funcion) {
     // Creating a new Mongoose Object by using the new keyword
     let newFunction;
