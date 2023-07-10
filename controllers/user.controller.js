@@ -97,7 +97,8 @@ exports.loginUser = async function (req, res) {
     else {
         User = {
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            rol: req.body.rol
         }
     }
 
