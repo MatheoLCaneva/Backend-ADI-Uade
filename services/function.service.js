@@ -55,42 +55,43 @@ exports.getFunctionWithFilters = async function (query, page, limit) {
         let Functions = await Function.paginate(finalQuery, options);
 
         // Calcular la distancia utilizando latitud y longitud de los cines
-        let lat1 = query.distance.lat;
-        let lon1 = query.distance.long;
-        let distanceRange = query.distance.range;
-        let minDistance, maxDistance;
+        if (query.distance) {
+            let lat1 = query.distance.lat;
+            let lon1 = query.distance.long;
+            let distanceRange = query.distance.range;
+            let minDistance, maxDistance;
 
-        // Extraer los límites del rango de distancia
-        if (distanceRange) {
-            const rangeValues = distanceRange.split("-");
+            // Extraer los límites del rango de distancia
+            if (distanceRange) {
+                const rangeValues = distanceRange.split("-");
 
-            if (rangeValues.length === 2) {
-                minDistance = parseFloat(rangeValues[0]);
-                maxDistance = parseFloat(rangeValues[1]);
-            } else if (rangeValues[0].startsWith("+")) {
-                minDistance = parseFloat(rangeValues[0].substring(1));
-            } else {
-                maxDistance = parseFloat(rangeValues[0]);
+                if (rangeValues.length === 2) {
+                    minDistance = parseFloat(rangeValues[0]);
+                    maxDistance = parseFloat(rangeValues[1]);
+                } else if (rangeValues[0].startsWith("+")) {
+                    minDistance = parseFloat(rangeValues[0].substring(1));
+                } else {
+                    maxDistance = parseFloat(rangeValues[0]);
+                }
             }
+
+            let filteredFunctions = Functions.docs.filter((func) => {
+                let lat2 = func.cinema.location.lat;
+                let lon2 = func.cinema.location.long;
+                let distance = calculateDistance(lat1, lon1, lat2, lon2);
+
+                if (minDistance && distance < minDistance) {
+                    return false;
+                }
+                if (maxDistance && distance > maxDistance) {
+                    return false;
+                }
+
+                return true;
+            });
+            Functions.docs = filteredFunctions;
         }
-
-        let filteredFunctions = Functions.docs.filter((func) => {
-            let lat2 = func.cinema.location.lat;
-            let lon2 = func.cinema.location.long;
-            let distance = calculateDistance(lat1, lon1, lat2, lon2);
-
-            if (minDistance && distance < minDistance) {
-                return false;
-            }
-            if (maxDistance && distance > maxDistance) {
-                return false;
-            }
-
-            return true;
-        });
-
         // Actualizar las funciones filtradas
-        Functions.docs = filteredFunctions;
 
         // Return the Functiond list that was returned by the mongoose promise
         return Functions;
