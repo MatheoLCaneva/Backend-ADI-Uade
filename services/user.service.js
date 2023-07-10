@@ -30,10 +30,9 @@ exports.getUsers = async function (query, page, limit) {
 
 exports.createUser = async function (user) {
     // Creating a new Mongoose Object by using the new keyword
-    let hashedPassword = bcrypt.hashSync(user.password, 8);
     let newUser;
 
-    const existingUser = await User.findOne({ email: user.email });
+    const existingUser = await User.findOne({ email: user.email, rol: user.rol });
     if (existingUser) {
         error = {
             description: "Mail used"
@@ -42,6 +41,7 @@ exports.createUser = async function (user) {
     }
 
     if (user.rol == "Owner") {
+        let hashedPassword = bcrypt.hashSync(user.password, 8);
         newUser = new User({
             name: user.name,
             lastName: user.lastName,
