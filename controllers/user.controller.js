@@ -114,6 +114,7 @@ exports.loginUser = async function (req, res) {
             return res.status(201).json({ status: 201, loginUser, message: "Succesfully login" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
+        console.log('ERROR ACA EN EL INVALID PASSWORD')
         return res.status(401).json({ status: 401, message: "Invalid username or password" })
     }
 }
