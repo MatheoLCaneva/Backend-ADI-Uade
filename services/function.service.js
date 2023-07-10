@@ -30,34 +30,99 @@ exports.getFunctions = async function (query, page, limit) {
 }
 
 exports.getFunctionWithFilters = async function (query, page, limit) {
-
     let options = {
         page,
         limit
-    }
-    // Try Catch the awaited promise to handle the error 
+    };
+    // Try Catch the awaited promise to handle the error
     try {
-        console.log("Query", query)
+        console.log("Query", query);
+
+        // Filtrar por las claves que no son "distance"
         let filters = [];
         for (let key in query) {
-            let filter = {};
-            filter[key] = query[key];
-            filters.push(filter);
+            if (key !== "distance") {
+                let filter = {};
+                filter[key] = query[key];
+                filters.push(filter);
+            }
         }
         let finalQuery = { $and: filters };
 
-        console.log('finalQuery___', finalQuery)
+        console.log("finalQuery", finalQuery);
 
-        let Functions = await Function.paginate(finalQuery, options)
-        // Return the Functiond list that was retured by the mongoose promise
+        // Realizar la búsqueda con los filtros iniciales
+        let Functions = await Function.paginate(finalQuery, options);
+
+        // Calcular la distancia utilizando latitud y longitud de los cines
+        let lat1 = query.distance.lat;
+        let lon1 = query.distance.long;
+        let distanceRange = query.distance.range;
+        let minDistance, maxDistance;
+
+        // Extraer los límites del rango de distancia
+        if (distanceRange) {
+            const rangeValues = distanceRange.split("-");
+
+            if (rangeValues.length === 2) {
+                minDistance = parseFloat(rangeValues[0]);
+                maxDistance = parseFloat(rangeValues[1]);
+            } else if (rangeValues[0].startsWith("+")) {
+                minDistance = parseFloat(rangeValues[0].substring(1));
+            } else {
+                maxDistance = parseFloat(rangeValues[0]);
+            }
+        }
+
+        let filteredFunctions = Functions.docs.filter((func) => {
+            let lat2 = func.cinema.location.lat;
+            let lon2 = func.cinema.location.long;
+            let distance = calculateDistance(lat1, lon1, lat2, lon2);
+
+            if (minDistance && distance < minDistance) {
+                return false;
+            }
+            if (maxDistance && distance > maxDistance) {
+                return false;
+            }
+
+            return true;
+        });
+
+        // Actualizar las funciones filtradas
+        Functions.docs = filteredFunctions;
+
+        // Return the Functiond list that was returned by the mongoose promise
         return Functions;
-
     } catch (e) {
-        // return a Error message describing the reason 
-        console.log("error services", e)
-        throw Error('Error while Paginating Functions');
+        // return a Error message describing the reason
+        console.log("error services", e);
+        throw Error("Error while Paginating Functions");
     }
-}
+};
+
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Radio de la Tierra en kilómetros
+
+    const degToRad = (degrees) => {
+        return degrees * (Math.PI / 180);
+    };
+
+    const dLat = degToRad(lat2 - lat1);
+    const dLon = degToRad(lon2 - lon1);
+
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(degToRad(lat1)) *
+        Math.cos(degToRad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+
+    return distance;
+};
 
 exports.createFunction = async function (funcion) {
     // Creating a new Mongoose Object by using the new keyword
