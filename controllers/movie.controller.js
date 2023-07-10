@@ -41,7 +41,8 @@ exports.createMovie = async function (req, res) {
         image: req.body.image,
         genre: req.body.genre,
         synopsis: req.body.synopsis,
-        releaseDate: req.body.releaseDate
+        releaseDate: req.body.releaseDate,
+        duration: req.body.duration
     }
     try {
         // Calling the Service function with the new object from the Request Body

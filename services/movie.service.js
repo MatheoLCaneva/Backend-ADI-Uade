@@ -37,7 +37,8 @@ exports.createMovie = async function (movie) {
         synopsis: movie.synopsis,
         rating: 0,
         cantRating: 0,
-        releaseDate: movie.releaseDate
+        releaseDate: movie.releaseDate,
+        duration: movie.duration
     })
 
     try {
