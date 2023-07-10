@@ -146,6 +146,7 @@ exports.loginUser = async function (user) {
             if (!_details) {
                 return 'No user'
             }
+            return _details
         }
 
     } catch (e) {
