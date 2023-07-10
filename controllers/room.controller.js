@@ -86,9 +86,13 @@ exports.updateRoom = async function (req, res, next) {
 
 exports.removeRoom = async function (req, res, next) {
 
-    let _id = req.params.id;
+    let obj = {
+        name: req.body.name,
+        cinema: req.body.cinema,
+        _id: req.body._id
+    }
     try {
-        let deleted = await RoomService.deleteRoom(_id);
+        let deleted = await RoomService.deleteRoom(obj);
         res.status(200).send({ deleted, status: 200, message: "Succesfully Deleted... " });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })

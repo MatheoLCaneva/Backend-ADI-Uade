@@ -15,7 +15,7 @@ router.get('/', RoomController.getRooms)
 router.get('/:id', RoomController.getRoomById)
 router.get('/cinema/:cinemaId', RoomController.getRoomsByCinema)
 router.put('/', RoomController.updateRoom)
-router.delete('/:id', RoomController.removeRoom)
+router.delete('/', RoomController.removeRoom)
 // router.post('/sendMail',MailController.sendEmail)
 
 

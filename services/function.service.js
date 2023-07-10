@@ -57,8 +57,6 @@ exports.getFunctionWithFilters = async function (query, page, limit) {
             Functions = await Function.paginate({}, options)
         }
 
-        // console.log("finalQuery", finalQuery);
-
         // Realizar la búsqueda con los filtros iniciales
         // return Functions
         // Calcular la distancia utilizando latitud y longitud de los cines

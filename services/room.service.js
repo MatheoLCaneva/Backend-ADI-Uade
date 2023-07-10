@@ -1,6 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
 let Room = require('../models/Room.model');
 let Cinema = require('../models/Cinema.model');
+let Function = require('../models/function.model')
 // let Class = require('../models/Class.model')
 // Saving the context of this module inside the _the letiable
 let _this = this
@@ -102,17 +103,25 @@ exports.updateRoom = async function (room) {
     }
 }
 
-exports.deleteRoom = async function (_id) {
+exports.deleteRoom = async function (data) {
 
     // Delete the Room
+    const obj = { 'room.id': data._id }
+    console.log(obj)
     try {
-        let deleted = await Room.findOneAndRemove({
-            _id: _id
+
+        let deleted = await Function.find(obj)
+        deleted.forEach((item) => {
+            item.deleteOne()
+        })
+
+        let deletedRoom = await Room.findOneAndRemove({
+            _id: data._id
         })
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Room Could not be deleted")
         }
-        return deleted;
+        return deletedRoom;
     } catch (e) {
         console.log(e)
         throw Error("Error Occured while Deleting the Room")
