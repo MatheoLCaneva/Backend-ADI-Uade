@@ -78,7 +78,7 @@ exports.removeUser = async function (req, res, next) {
     let email = req.body.email;
     try {
         let deleted = await UserService.deleteUser(email);
-        res.status(200).send({ deleted, status: 200, message: "Succesfully Deleted... "});
+        res.status(200).send({ deleted, status: 200, message: "Succesfully Deleted... " });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }
@@ -87,21 +87,34 @@ exports.removeUser = async function (req, res, next) {
 
 exports.loginUser = async function (req, res) {
     // Req.Body contains the form submit values.
-    console.log("body", req.body)
-    let User = {
-        email: req.body.email,
-        password: req.body.password
+    let User;
+    if (req.body.rol === 'User') {
+        User = {
+            email: req.body.email,
+            rol: 'User'
+        }
     }
+    else {
+        User = {
+            email: req.body.email,
+            password: req.body.password
+        }
+    }
+
     try {
         // Calling the Service function with the new object from the Request Body
         let loginUser = await UserService.loginUser(User);
         if (loginUser === 0)
             return res.status(400).json({ status: 400, message: "Invalid password" })
+
+        else if (loginUser === 'No user') 
+            return res.status(401).json({status: 401, message: 'No user'})
+
         else
             return res.status(201).json({ status: 201, loginUser, message: "Succesfully login" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({ status: 400, message: "Invalid username or password" })
+        return res.status(401).json({ status: 401, message: "Invalid username or password" })
     }
 }
 

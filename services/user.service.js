@@ -58,7 +58,7 @@ exports.createUser = async function (user) {
             name: user.name,
             lastName: user.lastName,
             email: user.email,
-            password: hashedPassword,
+            // password: hashedPassword,
             rol: user.rol,
             imgUser: user.imgUser
         })
@@ -123,20 +123,30 @@ exports.loginUser = async function (user) {
 
     // Creating a new Mongoose Object by using the new keyword
     try {
-        // Find the User 
-        console.log("login:", user)
-        let _details = await User.findOne({
-            email: user.email
-        });
-        let passwordIsValid = bcrypt.compareSync(user.password, _details.password);
-        if (!passwordIsValid) return 0;
+        // Find the User
+        if (user.rol !== 'User') {
+            let _details = await User.findOne({
+                email: user.email, rol: user.rol
+            });
+            let passwordIsValid = bcrypt.compareSync(user.password, _details.password);
+            if (!passwordIsValid) return 0;
 
-        let token = jwt.sign({
-            id: _details._id
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-        return { token: token, user: _details };
+            let token = jwt.sign({
+                id: _details._id
+            }, process.env.SECRET, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+            return { token: token, user: _details };
+        }
+        else {
+            let _details = await User.findOne({
+                email: user.email, rol: user.rol
+            });
+            if (!_details) {
+                return 'No user'
+            }
+        }
+
     } catch (e) {
         // return a Error message describing the reason     
         throw Error("Error while Login User")
