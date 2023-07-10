@@ -47,13 +47,20 @@ exports.getFunctionWithFilters = async function (query, page, limit) {
                 filters.push(filter);
             }
         }
-        let finalQuery = { $and: filters };
+        let Functions;
+        if (filters.length !== 0) {
+            let finalQuery = { $and: filters };
+            Functions = await Function.paginate(finalQuery, options);
+        }
 
-        console.log("finalQuery", finalQuery);
+        else {
+            Functions = await Function.paginate({}, options)
+        }
+
+        // console.log("finalQuery", finalQuery);
 
         // Realizar la búsqueda con los filtros iniciales
-        let Functions = await Function.paginate(finalQuery, options);
-
+        // return Functions
         // Calcular la distancia utilizando latitud y longitud de los cines
         if (query.distance) {
             let lat1 = query.distance.lat;

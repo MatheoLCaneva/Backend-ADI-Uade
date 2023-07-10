@@ -9,7 +9,8 @@ let MovieSchema = new mongoose.Schema({
     synopsis: String,
     rating: Number,
     cantRating:Number,
-    releaseDate: String
+    releaseDate: String,
+    duration: String
 })
 
 MovieSchema.plugin(mongoosePaginate)
