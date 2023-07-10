@@ -115,9 +115,12 @@ exports.deleteRoom = async function (data) {
             item.deleteOne()
         })
 
+        console.log(data._id)
+
         let deletedRoom = await Room.findOneAndRemove({
             _id: data._id
         })
+        
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Room Could not be deleted")
         }
